@@ -1,0 +1,63 @@
+Comandos Ubuntu, Ubuntu Server
+
+Criar usuario => useradd nomedousuario
+
+Excluir usuário => userdel -f nomedousuario
+
+Criar usuário com pasta de arquivos, documentos, imagens, etc => useradd nomedousuario -m -c "Nome completo"
+
+Criar senha pro usuário => passwd nomedousuario
+
+Comando para adicionar ou alterar o shell do usuario existente => chsh -s /bin/bash nomedousuario
+
+Excluir usuario e suas pastas => userdel -r -f nomedousuario
+
+Criar usuario completo => useradd nomedousuario -m -c "Nome Completo" -s /bin/bash
+
+Criar usuario com data de expiracao => useradd nomedousuario -c "Nome Completo" -m -e 21/09/2023
+
+Alterar usuário, alterando o shell =>  usermod nomeusuario -s /bin/bash
+
+Obrigar o usuario a trocar de senha =>  passwd nomeusuario -e
+
+Verificar usuario criados => cat /etc/passwd
+
+Criando usuario com senha =>  useradd nomedousuario -c "Nome Usuario" -s /bin/bash -m -p $(openssl passwd -crypt senhausuario) 
+
+sudo useradd -m -p $(perl -e 'print crypt($ARGV[0], "password")' 'SENHA_DO_USUARIO') nome_do_usuario
+
+Verificar todos os grupos => cat /etc/group
+
+Colocar usuario em um grupo => usermod -G adm,sudo mariana
+
+Criar grupo => groupadd NOME_GRUPO
+
+Para adicionar um usuario ao grupo => usermod -G NOME_GRUPO nomedousuario => obs vai sair dos grupos que estava e ficar só no especificado
+
+Para adicionar um usuario a varios grupos => usermod -G NOME_GRUPO,NOME_GRUPO1,NOME_GRUPO2
+
+Para remover um usuario de um grupo especifico => gpasswd -d nomedousuario NOME_GRUPO
+
+PERMISSÕES:
+
+d -> diretório rwx -> leitura,gravação e executar
+
+Trocar o dono do grupo ou atribuir => change owner => chown nomedousuario:NOME_GRUPO /diretorio/
+
+Mudar permissao => chmod Leitura (R) 4, Gravação (W) 2, Execução (X) 1, Nenhuma 0.
+Dono permissao total = soma = 7
+Grupo leitura e execução = 5
+outros = 0
+chmod 750 /nomediretorio/
+
+ADICIONANDO CONTROLE SOBRE UM ARQUIVO ESPECIFICO 
+root@meuservidor:/adm# nano texto-adm.txt
+chown root:GRP_ADM texto-adm.txt
+chmod 750 texto-adm.txt
+
+Criar script, salvar com o final .sh, no inicio colocar #!/bin/bash
+para executar usar ./nomedoarquivo.sh
+ativando permissão para executar o script chmod 744 date.sh
+
+Adicionar permissão de execução pro dono: chmod +x nomedoarquivo.sh
+
